@@ -1,11 +1,14 @@
 FROM docker.io/library/archlinux:latest
 # All packages are installed in the image, never on the host.
 RUN printf '\n[multilib]\nInclude = /etc/pacman.d/mirrorlist\n' >> /etc/pacman.conf && \
-    pacman -Syu --needed --noconfirm dotnet-sdk-9.0 git rsync tar gzip zstd \
+    pacman -Syu --needed --noconfirm git rsync tar gzip zstd \
       steam lib32-openssl lib32-curl lib32-mesa lib32-vulkan-swrast \
       mesa vulkan-swrast gtk3 libnotify libice libsm dbus gnome-keyring libsecret \
       tigervnc openbox xterm xorg-xdpyinfo xorg-xmessage ttf-dejavu firefox \
       python python-pip curl ca-certificates && \
+    curl -fL --retry 3 https://dot.net/v1/dotnet-install.sh -o /tmp/dotnet-install.sh && \
+    bash /tmp/dotnet-install.sh --channel 9.0 --install-dir /opt/dotnet --no-path && \
+    ln -s /opt/dotnet/dotnet /usr/local/bin/dotnet && rm /tmp/dotnet-install.sh && \
     python -m venv /opt/websockify && \
     /opt/websockify/bin/pip install --no-cache-dir websockify==0.13.0 && \
     curl -fL --retry 3 https://github.com/novnc/noVNC/archive/refs/tags/v1.7.0.tar.gz | \
