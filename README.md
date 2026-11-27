@@ -2,7 +2,7 @@
 
 <img src="packaging/linux/fst.svg" alt="FST" width="72">
 
-FST is a utility for adding games to Steam for free using Lua manifests.
+FST is a utility for adding games to Steam using Lua manifests.
 
 [Download](https://github.com/superhe11/FST/releases) · [Report an issue](https://github.com/superhe11/FST/issues) · [Русский](README.ru.md) · [Linux sandbox](LINUX_DEV.md)
 
