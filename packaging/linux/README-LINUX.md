@@ -29,7 +29,7 @@ sudo dnf install ca-certificates glibc libgcc libstdc++ libicu openssl-libs krb5
 
 A Secret Service provider must be running and unlocked to save Ryuu sign-in. For example, GNOME Keyring or a desktop wallet that implements Secret Service. FST never falls back to storing the key in a text file.
 
-Extract `fst-0.1.5-linux-x86_64.tar.gz`, open a terminal in `fst-linux-x64` and run:
+Extract `fst-0.1.6-linux-x86_64.tar.gz`, open a terminal in `fst-linux-x64` and run:
 
 ```sh
 bash install.sh
