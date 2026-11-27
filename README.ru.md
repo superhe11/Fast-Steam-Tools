@@ -2,7 +2,7 @@
 
 <img src="packaging/linux/fst.svg" alt="FST" width="72">
 
-FST — утилита для бесплатного добавления игр в Steam через lua-манифесты.
+FST — утилита для добавления игр в Steam через lua-манифесты.
 
 [Скачать](https://github.com/superhe11/FST/releases) · [Сообщить о проблеме](https://github.com/superhe11/FST/issues) · [English](README.md) · [Linux-песочница](LINUX_DEV.md)
 
