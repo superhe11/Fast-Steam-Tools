@@ -1,11 +1,16 @@
 FROM docker.io/library/archlinux:latest
 # All packages are installed in the image, never on the host.
+# Pin the .NET SDK archive and verify its published SHA-512 before extraction.
 RUN printf '\n[multilib]\nInclude = /etc/pacman.d/mirrorlist\n' >> /etc/pacman.conf && \
-    pacman -Syu --needed --noconfirm dotnet-sdk-9.0 git rsync tar gzip zstd \
+    pacman -Syu --needed --noconfirm git rsync tar gzip zstd \
       steam lib32-openssl lib32-curl lib32-mesa lib32-vulkan-swrast \
       mesa vulkan-swrast gtk3 libnotify libice libsm dbus gnome-keyring libsecret \
       tigervnc openbox xterm xorg-xdpyinfo xorg-xmessage ttf-dejavu firefox \
       python python-pip curl ca-certificates && \
+    curl -fL --retry 3 https://builds.dotnet.microsoft.com/dotnet/Sdk/9.0.321/dotnet-sdk-9.0.321-linux-x64.tar.gz -o /tmp/dotnet-sdk.tar.gz && \
+    echo '612bae8e90be6e69b65b904647b88a28d0d8c4d79ed4b208d9fdfa61ab34be57e6fd018ab46c3897dc08aad203380130e6af3e748f742a09aa11f8f189cab7e8  /tmp/dotnet-sdk.tar.gz' | sha512sum --check --status && \
+    install -d /opt/dotnet && tar -xzf /tmp/dotnet-sdk.tar.gz -C /opt/dotnet && \
+    rm /tmp/dotnet-sdk.tar.gz && ln -s /opt/dotnet/dotnet /usr/local/bin/dotnet && \
     python -m venv /opt/websockify && \
     /opt/websockify/bin/pip install --no-cache-dir websockify==0.13.0 && \
     curl -fL --retry 3 https://github.com/novnc/noVNC/archive/refs/tags/v1.7.0.tar.gz | \
